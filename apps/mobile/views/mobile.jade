@@ -2,6 +2,17 @@
 html
   head
     meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name="apple-mobile-web-app-status-bar-style", content="black")
+    // Home Screen icon
+    link(rel="apple-touch-icon", sizes="57x57",   href="images/DIAF_icon114.png")
+    link(rel="apple-touch-icon", sizes="72x72",   href="images/DIAF_icon144.png")
+    link(rel="apple-touch-icon", sizes="114x114", href="images/DIAF_icon114.png")
+    link(rel="apple-touch-icon", sizes="144x144", href="images/DIAF_icon144.png")
+    // Splash Screen
+    link(rel="apple-touch-startup-image", href="images/DIAF_splash460.png", media="(device-width: 320px)")
+    link(rel="apple-touch-startup-image", href="images/DIAF_splash640.png", media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)")
+
     link(rel='stylesheet', href='http://code.jquery.com/mobile/1.3.0-rc.1/jquery.mobile-1.3.0-rc.1.min.css')
     script(src='http://code.jquery.com/jquery-1.8.3.min.js')
     script(src='http://code.jquery.com/mobile/1.3.0-rc.1/jquery.mobile-1.3.0-rc.1.min.js')
@@ -12,4 +23,12 @@ html
         h1 David Is A Fatty!
       div(data-role='content')
         p Welcome to the David Is A Fatty app
-        a(href='#', data-role='button', data-icon='arrow-r', data-iconpos='right', data-theme='b') Record Weigth
+        a(href='#record-weight', data-role='button', data-icon='arrow-r', data-iconpos='right', data-theme='b') Record Weight
+    div(data-role='page')#record-weight
+      div(data-role='header')
+        h1 Record Weight
+      div(data-role='content')
+        form
+          label(for='weight-slider') Weight (Kg)
+          input(type='range', name='slider', id='weight-slider', value='85', min='75', max='90')
+          a(href='#record-weight', data-role='button', data-icon='arrow-r', data-iconpos='right', data-theme='b') Save
