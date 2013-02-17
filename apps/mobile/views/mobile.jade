@@ -18,17 +18,44 @@ html
     script(src='http://code.jquery.com/mobile/1.3.0-rc.1/jquery.mobile-1.3.0-rc.1.min.js')
     title David Is A Fatty
   body
-    div(data-role='page')
+    #home(data-role='page')
       div(data-role='header')
         h1 David Is A Fatty!
       div(data-role='content')
         p Welcome to the David Is A Fatty app
         a(href='#record-weight', data-role='button', data-icon='arrow-r', data-iconpos='right', data-theme='b') Record Weight
-    div(data-role='page')#record-weight
+        a(href='#history', data-role='button', data-icon='arrow-r', data-iconpos='right', data-theme='b') View History
+    
+    #record-weight(data-role='page', data-add-back-btn="true")
       div(data-role='header')
         h1 Record Weight
       div(data-role='content')
         form
-          label(for='weight-slider') Weight (Kg)
-          input(type='range', name='slider', id='weight-slider', value='85', min='75', max='90')
-          a(href='#record-weight', data-role='button', data-icon='arrow-r', data-iconpos='right', data-theme='b') Save
+          label(for='weight-number') Weight (Kg)
+          input(type='number', name='number', id='weight-number', value='80')
+          div(data-role="fieldcontain")
+            lable(for='meal-filp') Eaten meal:
+            select(name='meal-filp', id='meal-flip', data-role="slider")
+              option(value='no') No
+              option(value='yes') Yes          
+
+          a(href='#result', data-role='button', data-icon='check', data-iconpos='right', data-theme='b') Save
+
+    #result(data-role='page')
+      div(data-role='header')
+        h1 Result
+      div(data-role='content')
+        image(src='/images/button_arrow_red_up.png', style="float:left")
+        h1 Up
+        a(href='#history', data-role='button', data-icon='info', data-theme='b') History 
+        a(href='#home', data-role='button', data-icon='home', data-theme='b') Home
+
+    #history(data-role='page')
+      div(data-role='header')
+        a(href='#home', data-icon='home') Home
+        h1 History
+        a(href='#graph') Graph
+      div(data-role='content')
+        ul(data-role='listview', data-theme='d', data-divider-theme='d')
+          li(data-role='list-divider', role='heading') February 2012
+            span(class='ui-li-count ui-btn-up-c ui-btn-corner-all') 2
