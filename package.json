@@ -1,5 +1,5 @@
 {
-  "name": "application-name",
+  "name": "david-is-a-fatty",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
@@ -9,5 +9,9 @@
   },
   "devDependencies": {
     "node-dev": "~0.2.10"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.2.x"
   }
 }
