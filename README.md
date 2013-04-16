@@ -16,3 +16,22 @@ TODO
 - [ ] Display history in nice list view
 - [ ] Graphing of weigth history
 - [ ] Colour code with and without meal points.
+
+Running it
+------------
+Ok David, when you forget here is what you want to do:
+1) Run mongod to start MongoDB
+2) Run bin/devserver to start an autostarting node.
+
+Questions for Andrew
+------------------------
+1) I didn't have mongo running and the console returned an error but the server never responded to the ajax call.
+  - How should you handel such error cases? Why did it not return? Node didn't seem to die?
+2) When do you open your mongo connection in your node app?
+
+
+    dbConnect = (callback) ->
+    mongoose.connect(mongoUri)
+    db = mongoose.connection
+    db.on('error', console.error.bind(console, 'connection error:'))
+    db.once 'open', callback

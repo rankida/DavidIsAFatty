@@ -7,7 +7,8 @@ require('coffee-script');
 
 var express = require('express')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , mongo = require('mongodb');
 
 var app = express();
 

@@ -28,9 +28,30 @@
     return false;
   };
 
+  function getHistory(event){
+    event.preventDefault();
+    $.mobile.loading('show', { text: "Getting History", theme: 'b' });
+
+    $.ajax({
+      url: '/history',
+      type: 'GET',
+      success: function(data, textStatus, xhr){
+        alert('yay');
+        $.mobile.loading('hide');
+      },
+      error: function(xhr, status, err){
+        $.mobile.loading('hide');
+        alert('Something went wrong :(');
+      }
+    })
+
+    return false;
+  }
+
   $(document).ready(function(){
     // events
     $('#record-weight').delegate('#save_btn', 'click', recordWeigth);
+    $('#history').on("pageshow", getHistory);
   });
 
 
