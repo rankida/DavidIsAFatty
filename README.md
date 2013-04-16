@@ -20,11 +20,12 @@ TODO
 Running it
 ------------
 Ok David, when you forget here is what you want to do:
-1) Run ``mongod`` to start MongoDB
-2) Run ``bin/devserver`` to start an autostarting node.
+
+1. Run ``mongod`` to start MongoDB
+2. Run ``bin/devserver`` to start an autostarting node.
 
 Questions for Andrew
 ------------------------
-1) I didn't have mongo running and the console returned an error but the server never responded to the ajax call.
+1. I didn't have mongo running and the console returned an error but the server never responded to the ajax call.
   - How should you handel such error cases? Why did it not return? Node didn't seem to die?
-2) When do you open your mongo connection in your node app?
+2. When do you open your mongo connection in your node app?
