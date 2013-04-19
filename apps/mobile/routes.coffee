@@ -1,11 +1,6 @@
+# var _ = require("underscore");
 
-routes = (app) ->
-
-  mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/mydb'
-  mongoose = require('mongoose')
-  mongoose.connect(mongoUri)
-  weightHistorySchema = mongoose.Schema({weight: String, meal: Boolean})
-  WeightHistory = mongoose.model('Weigth', weightHistorySchema)
+routes = (app, WeightHistory) ->
 
   app.get '/mobile', (req, res) ->
     res.render "#{__dirname}/views/mobile"
@@ -14,20 +9,18 @@ routes = (app) ->
     res.render "#{__dirname}/views/test"
 
   app.get '/history', (req, res) ->
-    db = mongoose.connection
-    db.on('error', console.error.bind(console, 'connection error:'))
+    console.log "GET /history called with req.body of " + JSON.stringify(req.body)
     WeightHistory.find (err, hist) ->
+      console.log("In method handeler of find.")
       console.log("Error: " + err) if err
       res.send(hist);
-      db.close
 
   app.post '/history', (req, res) ->
     console.log('req.body' + JSON.stringify(req.body))
-    db = mongoose.connection
-    db.on('error', console.error.bind(console, 'connection error:'))
     entity = new WeightHistory(req.body)
+    console.log('Entity created')
     entity.save (err, entity) ->
-      console.log("Error! " + err) if err
+      console.log("Error! " + err) #if err
       res.send({ direction: 'down' })
 
 module.exports = routes

@@ -8,8 +8,22 @@ require('coffee-script');
 var express = require('express')
   , http = require('http')
   , path = require('path')
-  , mongo = require('mongodb');
+  , mongo = require('mongodb')
+  , mongoose = require('mongoose');
 
+// Setup Mogo db & Schemas
+// ========================
+mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/mydb'
+mongoose.connect(mongoUri)
+var db = mongoose.connection;
+//var db = mongoose.createConnection(mongoUri);
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() { console.log("Mongoose connection open."); });
+var weightHistorySchema = mongoose.Schema({weight: String, meal: Boolean});
+var WeightHistory = mongoose.model('Weigth', weightHistorySchema);
+
+// Configure App
+// ================
 var app = express();
 
 app.configure(function(){
@@ -30,7 +44,7 @@ app.configure('development', function(){
 
 // Routes
 require('./apps/authentication/routes')(app)
-require('./apps/mobile/routes')(app)
+require('./apps/mobile/routes')(app, WeightHistory)
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
