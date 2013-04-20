@@ -1,5 +1,12 @@
 (function() {
 
+  var histListItemTemplate =
+"<li>\
+  <h2><%= weight %>Kg</h2>\
+  <p><%= when %></p>\
+  <p class='ui-li-aside'><%= direction %></p>\
+</li>";
+
   function recordWeigth(event){
     event.preventDefault();
     $.mobile.loading('show', { text: "Saving", theme: 'b' });
@@ -36,22 +43,48 @@
       url: '/history',
       type: 'GET',
       success: function(data, textStatus, xhr){
-        alert('yay');
         $.mobile.loading('hide');
+        var html = "";
+        _.each(data, function(d) {
+          d.when = new Date(d.when).format("ddd dd mmm yyyy HH:MM");
+          html += _.template(histListItemTemplate, d);
+        });
+        $('#historyList').html(html).listview('refresh');
       },
       error: function(xhr, status, err){
         $.mobile.loading('hide');
         alert('Something went wrong :(');
       }
-    })
+    });
 
     return false;
-  }
+  };
+
+  function clearHistory(event) {
+    event.preventDefault();
+    $.mobile.loading('show', { text: "Clearing History", theme: 'b' });
+
+    $.ajax({
+      url: '/history',
+      type: 'DELETE',
+      success: function(data, textStatus, xhr){
+        $.mobile.loading('hide');
+        $.mobile.changePage($('#home'));
+      },
+      error: function(xhr, status, err){
+        $.mobile.loading('hide');
+        alert('Something went wrong :(');
+      }
+    });
+
+    return false;
+  };
 
   $(document).ready(function(){
     // events
     $('#record-weight').delegate('#save_btn', 'click', recordWeigth);
     $('#history').on("pageshow", getHistory);
+    $('#clear-history').delegate('#clearHistory_btn', 'click', clearHistory);
   });
 
 

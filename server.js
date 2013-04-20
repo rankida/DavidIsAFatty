@@ -19,7 +19,13 @@ var db = mongoose.connection;
 //var db = mongoose.createConnection(mongoUri);
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() { console.log("Mongoose connection open."); });
-var weightHistorySchema = mongoose.Schema({weight: String, meal: Boolean});
+var weightHistorySchema = mongoose.Schema({
+  _userId: mongoose.Schema.Types.ObjectId,
+  weight: String,
+  when: Date,
+  direction: String,
+  meal: Boolean
+});
 var WeightHistory = mongoose.model('Weigth', weightHistorySchema);
 
 // Configure App
@@ -43,8 +49,8 @@ app.configure('development', function(){
 });
 
 // Routes
-require('./apps/authentication/routes')(app)
-require('./apps/mobile/routes')(app, WeightHistory)
+require('./apps/authentication/routes')(app);
+require('./apps/mobile/routes')(app, WeightHistory, mongoose);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
