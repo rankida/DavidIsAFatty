@@ -9,11 +9,15 @@ TODO
 - [X] JQuery Mobile full screen iOS app
 - [X] Node server
 - [X] Respond to result of Ajax call to server
-- [ ] Connect up storage (MongoDB for now)
+- [X] Connect up storage (MongoDB for now)
 - [ ] Secure data post so that anyone can't just fill up my db (likely password stored in environment variable)
 - [ ] Push to Heroku (with Mongo working)
-- [ ] Query for history of weights
-- [ ] Display history in nice list view
+- [ ] Remove stubbed out Direction returned by record weight
+- [X] Query for history of weights
+- [X] Display history in nice list view
+- [ ] Fix page transitions so that you go 'back' to home
+- [ ] Fix history refresh - you see the old history until you get the new one
+- [ ] Add a 'Add to Homescreen' page to the very start of the app
 - [ ] Graphing of weigth history
 - [ ] Colour code with and without meal points.
 
