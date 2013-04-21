@@ -32,6 +32,9 @@ var WeightHistory = mongoose.model('Weigth', weightHistorySchema);
 // ================
 var app = express();
 
+var MemoryStore = express.session.MemoryStore,
+  sessionStore = new MemoryStore();
+
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
@@ -40,6 +43,12 @@ app.configure(function(){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+  app.use(express.cookieParser());
+  app.use(express.session({
+    store: sessionStore,
+    secret: 'Keep Guessing!',
+    reapInterval: 60000 * 10
+  }));
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });
@@ -48,9 +57,19 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-// Routes
+
 require('./apps/authentication/routes')(app);
-require('./apps/mobile/routes')(app, WeightHistory, mongoose);
+function loginRequired(req, res, next) {
+  if (req.session.user) {
+    next();
+  }
+  else {
+    res.redirect('/login?redir=' + req.url);
+  }
+}
+
+// Routes 
+require('./apps/mobile/routes')(app, WeightHistory, mongoose, loginRequired);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
