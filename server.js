@@ -21,7 +21,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() { console.log("Mongoose connection open."); });
 var weightHistorySchema = mongoose.Schema({
   username: String,
-  weight: String,
+  weight: Number,
   when: Date,
   direction: String,
   meal: Boolean

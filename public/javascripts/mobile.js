@@ -23,7 +23,7 @@
       weight: $('#weight-number').val(),
       meal: $('#meal-flip').val()
     }
-    
+
     $.ajax({
       url: '/history',
       type: 'POST',
@@ -58,7 +58,7 @@
           html += _.template(histListItemTemplate, d);
         });
         if(data.length === 0) {
-          html = "<i>Nothing was found</i>";
+          html = "<h3><i>Nothing was found</i></h3>";
         }
         $('#historyList').html(html).listview('refresh');
       },
