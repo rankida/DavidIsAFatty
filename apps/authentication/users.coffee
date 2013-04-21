@@ -2,7 +2,8 @@ _ = require "underscore"
 
 users =
   david: {username: 'David', password: 'rankin', role:'admin'},
-  john: {username: 'John', password: 'kane', role:'admin'}
+  john: {username: 'John', password: 'kane', role:'admin'},
+  louise: {username: 'Louise', password: 'rankin', role:'admin'}
 
 module.exports.authenticate = (username, password, callback) ->
   console.log "authenticating U:" + username + " P:" + password
