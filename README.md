@@ -17,6 +17,8 @@ TODO
 - [X] Display history in nice list view
 - [ ] Fix page transitions so that you go 'back' to home
 - [ ] Fix history refresh - you see the old history until you get the new one
+- [ ] Deal with not being logged in and moving within the page.
+- [ ] Add Logout
 - [ ] Add a 'Add to Homescreen' page to the very start of the app
 - [ ] Graphing of weigth history
 - [ ] Colour code with and without meal points.

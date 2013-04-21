@@ -7,6 +7,15 @@
   <p class='ui-li-aside'><%= direction %></p>\
 </li>";
 
+  var errorHandeler = function(xhr, status, err){
+    $.mobile.loading('hide');
+    if (xhr.status === 401) {
+      window.location = "/"; // get them to login again
+    } else {
+      alert('Something went wrong :( ' + status + "." + err);
+    }
+  };
+
   function recordWeigth(event){
     event.preventDefault();
     $.mobile.loading('show', { text: "Saving", theme: 'b' });
@@ -14,6 +23,7 @@
       weight: $('#weight-number').val(),
       meal: $('#meal-flip').val()
     }
+    
     $.ajax({
       url: '/history',
       type: 'POST',
@@ -27,11 +37,9 @@
         }
         $.mobile.changePage($('#result'));
       },
-      error: function(xhr, status, err){
-        $.mobile.loading('hide');
-        alert('Something went wrong :(');
-      }
+      error: errorHandeler
     });
+
     return false;
   };
 
@@ -49,12 +57,12 @@
           d.when = new Date(d.when).format("ddd dd mmm yyyy HH:MM");
           html += _.template(histListItemTemplate, d);
         });
+        if(data.length === 0) {
+          html = "<i>Nothing was found</i>";
+        }
         $('#historyList').html(html).listview('refresh');
       },
-      error: function(xhr, status, err){
-        $.mobile.loading('hide');
-        alert('Something went wrong :(');
-      }
+      error: errorHandeler
     });
 
     return false;

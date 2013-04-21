@@ -20,7 +20,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() { console.log("Mongoose connection open."); });
 var weightHistorySchema = mongoose.Schema({
-  _userId: mongoose.Schema.Types.ObjectId,
+  username: String,
   weight: String,
   when: Date,
   direction: String,
@@ -59,12 +59,17 @@ app.configure('development', function(){
 
 
 require('./apps/authentication/routes')(app);
+
 function loginRequired(req, res, next) {
   if (req.session.user) {
     next();
   }
   else {
-    res.redirect('/login?redir=' + req.url);
+    if (req.xhr) {
+      res.send(401, "Please login");
+    } else {
+      res.redirect('/login?redir=' + req.url);
+    }
   }
 }
 
