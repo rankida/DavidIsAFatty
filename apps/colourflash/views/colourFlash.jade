@@ -1,0 +1,43 @@
+!!!
+html
+  head
+
+    script(src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js')
+    script(src='http://code.jquery.com/jquery-1.8.3.min.js')
+
+    <!-- Bootstrap -->
+    link(href="bootstrap/css/bootstrap.min.css", rel="stylesheet", media="screen")
+    script(src="bootstrap/js/bootstrap.min.js")
+
+    link(rel='stylesheet/less', type="text/css", href='stylesheets/colourFlash.less')
+    script(type="text/javascript")
+      less = {
+        env: "development", // or "production"
+        async: false,       // load imports async
+        fileAsync: false,   // load imports async when in a page under
+                            // a file protocol
+        poll: 1000,         // when in watch mode, time in ms between polls
+        functions: {},      // user functions, keyed by name
+        dumpLineNumbers: "mediaQuery", // or "mediaQuery" or "all"
+      };
+    script(src='/javascripts/less-1.4.0-beta.js')
+    
+    script(src='javascripts/colourFlash.js')
+
+    title David Is A Fatty
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+  body
+    #container.container
+      h1 Colour Flash!
+      .row
+        .span12.well
+          a#flip.btn Flip
+          a#darker.btn Darker
+          a#start.btn Start
+          a#stop.btn Stop
+      .row
+        .span6(class="colour1 top")
+        .span6(class="colour1 clear top")
+      .row
+        .span6(class="colour1 clear")
+        .span6(class="colour1 bottom")

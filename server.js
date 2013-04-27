@@ -75,6 +75,7 @@ function loginRequired(req, res, next) {
 
 // Routes 
 require('./apps/mobile/routes')(app, WeightHistory, mongoose, loginRequired);
+require('./apps/colourFlash/colourFlash')(app);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
