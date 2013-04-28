@@ -2,7 +2,7 @@ $(function(){
   var red, green, blue;
 
   function resetColour(){
-    red = 255;
+    red = 150; //255;
     green = 16;
     blue = 16;
   };
@@ -11,10 +11,19 @@ $(function(){
     $('.colour1').toggleClass('clear');
   };
 
-  resetColour();
+  function rgbColour(){
+    return '#' + red.toString(16) + green.toString(16) + blue.toString(16);
+  }
 
-  // Change the colour every 3 sec
-  window.interval = setInterval(toggle,3000);
+  resetColour();
+  less.modifyVars({
+      '@red': rgbColour()
+    });
+
+  $('#colourRGB').html(rgbColour());
+
+  // Change the colour every 2 sec
+  window.interval = setInterval(toggle,2000);
 
   $('#flip').click(function(e){
     e.preventDefault();
@@ -42,9 +51,8 @@ $(function(){
     e.preventDefault();
     red = red - 20;
     if(red < 110) { resetColour(); }
-    var colour = red.toString(16) + green.toString(16) + blue.toString(16);
     less.modifyVars({
-      '@red': '#' + colour
+      '@red': rgbColour()
     });
     return false;
   });
