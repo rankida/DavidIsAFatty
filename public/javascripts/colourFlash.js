@@ -24,6 +24,7 @@ $(function(){
 
   function toggle() {
     $('.colour1').toggleClass('clear');
+    $('.colour2').toggleClass('clear');
   };
 
   function rgbColour(){
@@ -33,7 +34,8 @@ $(function(){
   resetColour();
 
   // Change the colour every 2 sec
-  window.interval = setInterval(toggle,1000);
+  window.toggleInterval = setInterval(toggle,1000);
+  window.darkenInterval = setInterval(darker,3000);
 
   $('#flip').click(function(e){
     e.preventDefault();
@@ -42,19 +44,23 @@ $(function(){
   });
   $('#stop').click(function(e){
     e.preventDefault();
-    if(window.interval){
-      window.clearInterval(window.interval);
-      window.interval = undefined;
+    if(window.toggleInterval){
+      window.clearInterval(window.toggleInterval);
+      window.clearInterval(window.darkenInterval);
+      window.toggleInterval = undefined;
+      window.darkenInterval = undefined;
     }
     return false;
   });
   $('#start').click(function(e){
     e.preventDefault();
-    if(window.interval){
-      window.clearInterval(window.interval);
+    if(window.toggleInterval){
+      window.clearInterval(window.toggleInterval);
+      window.clearInterval(window.darkenInterval);
     }
     toggle();
-    window.interval = setInterval(toggle,3000);
+    window.toggleInterval = setInterval(toggle,3000);
+    window.darkenInterval = setInterval(darker,3000);
     return false;
   });
   $('#darker').click(function(e){
