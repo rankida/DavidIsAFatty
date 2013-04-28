@@ -1,12 +1,19 @@
 // LESS
 
-@red: #ff0000;
+@baseColour: #ff0000;
 @boxHeight: 300px;
 
 .colour1 {
-  background: @red;
+  background: @baseColour;
   height: @boxHeight;
 }
 .clear {
   background: white;
+  .colourRGB {
+    display: none;
+  }
+}
+.colourRGB {
+  margin: 20px 30px;
+  color: #FFCC00;
 }

@@ -1,10 +1,25 @@
 $(function(){
   var red, green, blue;
 
+  function displayColour(){
+    var c = rgbColour();
+    less.modifyVars({
+        '@baseColour': c
+      });
+    $('.colourRGB').text(c);
+  }
+
   function resetColour(){
-    red = 150; //255;
+    red = 255; //255;
     green = 16;
     blue = 16;
+    displayColour();
+  };
+
+  function darker() {
+    red = red - 15;
+    if (red < 110) { resetColour(); }
+    displayColour();
   };
 
   function toggle() {
@@ -16,14 +31,9 @@ $(function(){
   }
 
   resetColour();
-  less.modifyVars({
-      '@red': rgbColour()
-    });
-
-  $('#colourRGB').html(rgbColour());
 
   // Change the colour every 2 sec
-  window.interval = setInterval(toggle,2000);
+  window.interval = setInterval(toggle,1000);
 
   $('#flip').click(function(e){
     e.preventDefault();
@@ -49,11 +59,7 @@ $(function(){
   });
   $('#darker').click(function(e){
     e.preventDefault();
-    red = red - 20;
-    if(red < 110) { resetColour(); }
-    less.modifyVars({
-      '@red': rgbColour()
-    });
+    darker();
     return false;
   });
 });
