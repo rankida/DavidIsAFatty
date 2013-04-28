@@ -29,5 +29,6 @@ Ok David, when you forget here is what you want to do:
 
 1. Run ``mongod`` to start MongoDB
 2. Run ``bin/devserver`` to start an autostarting node.
+3. For tests you can run ``bin/test`` (you can also run ``npm test``)
 
 If you want to see the latest deployed version then visit http://davidisafatty.herokuapp.com/mobile on your iPhone.

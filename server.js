@@ -30,7 +30,7 @@ var WeightHistory = mongoose.model('Weigth', weightHistorySchema);
 
 // Configure App
 // ================
-var app = express();
+var app = module.exports = express();
 
 var MemoryStore = express.session.MemoryStore,
   sessionStore = new MemoryStore();
@@ -55,6 +55,14 @@ app.configure(function(){
 
 app.configure('development', function(){
   app.use(express.errorHandler());
+});
+
+app.configure('test', function(){
+  app.set('port', 3001);
+});
+
+app.configure('production', function(){
+  // app.use(express.errorHandler()); // dont know what this does!
 });
 
 
