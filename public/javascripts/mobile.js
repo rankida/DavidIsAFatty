@@ -88,11 +88,25 @@
     return false;
   };
 
+  function signout(event){
+    event.preventDefault();
+
+    $.ajax({
+      url:'/sessions',
+      type: 'DELETE',
+      success: function(data, textStatus, xhr){
+        console.log(textStatus);
+        alert('Logged out');
+      }
+    });
+  }
+
   $(document).ready(function(){
     // events
     $('#record-weight').delegate('#save_btn', 'click', recordWeigth);
     $('#history').on("pageshow", getHistory);
     $('#clear-history').delegate('#clearHistory_btn', 'click', clearHistory);
+    $('#home').delegate('a#signout', 'click', signout);
   });
 
 

@@ -9,7 +9,9 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , mongo = require('mongodb')
-  , mongoose = require('mongoose');
+  , mongoose = require('mongoose')
+  , RedisStore = require('connect-redis')(express)
+  , flash = require('connect-flash');
 
 // Setup Mogo db & Schemas
 // ========================
@@ -32,9 +34,6 @@ var WeightHistory = mongoose.model('Weigth', weightHistorySchema);
 // ================
 var app = module.exports = express();
 
-var MemoryStore = express.session.MemoryStore,
-  sessionStore = new MemoryStore();
-
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
@@ -45,10 +44,10 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(express.cookieParser());
   app.use(express.session({
-    store: sessionStore,
-    secret: 'Keep Guessing!',
-    reapInterval: 60000 * 10
+    secret: 'Keep Guessing!az1234',
+    store: new RedisStore({host:'127.0.0.1', port:6379})
   }));
+  app.use(flash());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });

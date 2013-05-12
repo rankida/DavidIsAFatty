@@ -28,6 +28,7 @@ Running it
 Ok David, when you forget here is what you want to do:
 
 1. Run ``mongod`` to start MongoDB
+3. Run ``redis-server /usr/local/etc/redis.conf`` to start Redis (having installed via ``brew install redis``)
 2. Run ``bin/devserver`` to start an autostarting node.
 3. For tests you can run ``bin/test`` (you can also run ``npm test``)
 
